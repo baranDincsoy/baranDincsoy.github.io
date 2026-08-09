@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baran Cenk Dincsoy — Software developer, marine and fuel operations background</title>
+<meta name="description" content="Mobile applications built from field operations: aviation fuel calculation, ramp dispatch, engine room logging. Marine engineer officer turned software developer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Baran Cenk Dincsoy</a>
+    <nav aria-label="Projects">
+      <a href="/fuelops/">FuelOps</a>
+      <a href="/rampdispatch/">RampDispatch</a>
+      <a href="/engineroomlog/">EngineRoomLog</a>
+      <a href="/roadtripplanner/">RoadTripPlanner</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <section class="band">
+    <h1>I build software for work I have done myself.</h1>
+    <p class="lede">Seven years as a marine engineer officer, then quality control on wind turbine blades, and now maintenance on an aviation fuel facility in Charlotte. For about a year I have been teaching myself mobile development alongside the day job.</p>
+    <p>Every application here started the same way: I watched someone solve a problem with a plastic wheel chart, a clipboard, or a bound paper logbook, and I already knew the procedure well enough to build the digital version correctly. The domain knowledge came first. The code came second.</p>
+    <p>I am relocating to Nova Scotia in November 2026 and hold a Canadian open work permit valid through 2029.</p>
+  </section>
+
+  <section class="band">
+    <h2>Projects</h2>
+    <ul class="projects">
+
+      <li class="project">
+        <h3><a href="/fuelops/">FuelOps</a></h3>
+        <dl class="plate">
+          <dt>Platform</dt><dd>React Native / Expo</dd>
+          <dt>Replaces</dt><dd>Gammon GTP-3012-1A API gravity wheel</dd>
+          <dt>Status</dt><dd>Field-validated, preparing Play Store release</dd>
+        </dl>
+        <p>Fuel density and API gravity calculation for aviation, marine, and tank farm operators. Implements ASTM D1250 Tables 54B and 6B iteratively, plus API MPMS 11.2.1 compressibility. Checked against six real measurements at an airport fuel facility, which is how two corrections were found that the textbook formulas do not mention.</p>
+        <span class="more" aria-hidden="true">How FuelOps works</span>
+      </li>
+
+      <li class="project">
+        <h3><a href="/rampdispatch/">RampDispatch</a></h3>
+        <dl class="plate">
+          <dt>Platform</dt><dd>Kotlin / Jetpack Compose</dd>
+          <dt>Replaces</dt><dd>Whiteboard and radio fuel dispatch</dd>
+          <dt>Status</dt><dd>Portfolio project, mock data only</dd>
+        </dl>
+        <p>Offline-first aircraft fuel dispatch board with role-based access, an eight-step fuelling wizard, and per-aircraft tank layouts. Room is the single source of truth, so the board stays usable when the ramp loses signal. Built from my own years working the ramp as a fueller and team leader.</p>
+        <span class="more" aria-hidden="true">How RampDispatch works</span>
+      </li>
+
+      <li class="project">
+        <h3><a href="/engineroomlog/">EngineRoomLog</a></h3>
+        <dl class="plate">
+          <dt>Platform</dt><dd>Kotlin / Compose / Room / Firebase</dd>
+          <dt>Replaces</dt><dd>The paper engine room logbook</dd>
+          <dt>Status</dt><dd>Portfolio project</dd>
+        </dl>
+        <p>Watch entries, two-stage sign-off, and write-once PDF exports verified with SHA-256, synced across a fleet when a connection is available. The permission model and the sign-off rules come from seven years of keeping these logs by hand at sea, including the awkward cases such as a watch with only one engineer on it.</p>
+        <span class="more" aria-hidden="true">How EngineRoomLog works</span>
+      </li>
+
+      <li class="project">
+        <h3><a href="/roadtripplanner/">RoadTripPlanner</a></h3>
+        <dl class="plate">
+          <dt>Platform</dt><dd>React Native</dd>
+          <dt>Subject</dt><dd>National parks, trails, and city parks</dd>
+          <dt>Status</dt><dd>Portfolio project</dd>
+        </dl>
+        <p>A discovery app that orchestrates six APIs — NPS, OSM Overpass, YouTube, Google Places, OpenWeather, and Recreation.gov — behind lazy enrichment, tiered caching, and multi-endpoint retry. The interesting problem here was not the interface but keeping request cost and failure rate down when half the sources are public infrastructure that can be slow or briefly unavailable.</p>
+        <span class="more" aria-hidden="true">How RoadTripPlanner works</span>
+      </li>
+
+    </ul>
+  </section>
+
+  <section class="band">
+    <h2>Background</h2>
+    <p>Second Engineer Officer licence, 3000 kW, all waters, STCW. Associate degree in computer programming from Manisa Celal Bayar University, and a maritime vocational diploma in marine maintenance and ship repair technology. Quality control on ENERCON E-138 and E-126 turbine blades at TPI Composites. Aircraft fueller, then team leader, now maintenance mechanic at an aviation fuel facility.</p>
+    <p>Certifications include the Meta Android Developer Professional Certificate, Meta React Native, and the IBM Full Stack Software Developer certificate.</p>
+  </section>
+
+</main>
+
+<footer class="colophon wrap">
+  <span>Charlotte, NC &middot; Relocating to Nova Scotia, November 2026</span>
+  <span>
+    <a href="https://github.com/baranDincsoy">GitHub</a> &middot;
+    <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-SLUG/">LinkedIn</a> &middot;
+    <a href="mailto:YOUR-EMAIL@example.com">Email</a>
+  </span>
+</footer>
+
+</body>
+</html>

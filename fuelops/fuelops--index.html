@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FuelOps — Baran Cenk Dincsoy</title>
+<meta name="description" content="A React Native fuel density and API gravity calculator implementing ASTM D1250 and API MPMS 11.2.1, validated against instruments at an airport fuel facility.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="wordmark" href="/">Baran Cenk Dincsoy</a>
+    <nav aria-label="Projects">
+      <a href="/fuelops/" aria-current="page">FuelOps</a>
+      <a href="/rampdispatch/">RampDispatch</a>
+      <a href="/engineroomlog/">EngineRoomLog</a>
+      <a href="/roadtripplanner/">RoadTripPlanner</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <section class="band">
+    <h1>FuelOps</h1>
+    <dl class="plate">
+      <dt>Type</dt><dd>Fuel density and API gravity calculator</dd>
+      <dt>Platform</dt><dd>React Native, Expo SDK 54, Android</dd>
+      <dt>Replaces</dt><dd>Gammon GTP-3012-1A wheel chart and printed compressibility tables</dd>
+      <dt>Standards</dt><dd>ASTM D1250 Tables 5B/6B and 54B, API MPMS 11.2.1, API 11.1</dd>
+      <dt>Status</dt><dd>Field-validated against six measurements, preparing Play Store release</dd>
+      <dt>Source</dt><dd><a href="https://github.com/baranDincsoy/FuelOps">github.com/baranDincsoy/FuelOps</a></dd>
+      <dt>Privacy</dt><dd><a href="/fuelops/privacy/">Privacy policy</a></dd>
+    </dl>
+    <p class="lede">Every shift, operators reach for a plastic wheel chart and a photocopied table to correct fuel gravity for temperature. Those tools have not changed in decades, and the digital alternatives were written by people who had not stood next to a hydrometer.</p>
+  </section>
+
+  <!--
+    Screenshots. Save the images from the README into /assets/images/ first,
+    then delete these comment markers to show them.
+
+  <section class="band">
+    <h2>Screens</h2>
+    <div class="shots">
+      <img src="/assets/images/fuelops-1.png" alt="API gravity correction screen showing observed API, temperature, and corrected values.">
+      <img src="/assets/images/fuelops-2.png" alt="Compressibility factor screen.">
+      <img src="/assets/images/fuelops-3.png" alt="Meter calibration factor screen.">
+      <img src="/assets/images/fuelops-4.png" alt="Unit converter screen.">
+      <img src="/assets/images/fuelops-5.png" alt="Saved records screen with tank and cart tags.">
+    </div>
+  </section>
+  -->
+
+  <section class="band">
+    <h2>Field validation</h2>
+    <p>The calculations were checked against the physical instruments and printed tables in daily use at an airport fuel facility, not only against the published formulas. Reference sources were the Gammon GTP-3012-1A wheel, ATA Form 103.08 fuel quality records, and printed compressibility factor tables.</p>
+
+    <div class="table-scroll">
+      <table>
+        <caption>Corrected API gravity at 60&deg;F — wheel chart against FuelOps</caption>
+        <thead>
+          <tr><th scope="col">Raw API</th><th scope="col">Temp</th><th scope="col">Wheel</th><th scope="col">FuelOps</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>44.5</td><td>76&deg;F</td><td>43.1</td><td>43.1</td></tr>
+          <tr><td>45.5</td><td>83&deg;F</td><td>43.5</td><td>43.5</td></tr>
+          <tr><td>47.0</td><td>97&deg;F</td><td>43.7</td><td>43.7</td></tr>
+          <tr><td>45.5</td><td>86&deg;F</td><td>43.2</td><td>43.2</td></tr>
+          <tr><td>45.3</td><td>84&deg;F</td><td>43.2</td><td>43.2</td></tr>
+          <tr><td>45.5</td><td>89&deg;F</td><td>43.0</td><td>43.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Two corrections were found only because of that testing. Neither is obvious from the formulas alone.</p>
+
+    <h3>Hydrometer glass expansion</h3>
+    <p>Early results drifted low, and the drift grew as the temperature difference grew. The glass of the hydrometer itself expands with temperature, which changes the volume it displaces; API 11.1 corrects for this. Adding the correction closed the gap across the whole temperature range.</p>
+
+    <h3>Weight in air against weight in vacuum</h3>
+    <p>Metric density is defined in vacuum, but the API pounds-per-gallon tables report weight in air. Subtracting air buoyancy of 0.0011 g/mL brought the figure into agreement with the field records. The difference is 0.009 lb/gal — small enough to look like a rounding artefact, large enough that any operator checking the app against their chart would have called it a bug.</p>
+
+    <p>A third detail came out of the same testing. Displayed values are now derived from the rounded corrected API rather than from the internal high-precision figure. That shifts specific gravity by 0.001, which is invisible to the physics, but it means every number on screen agrees with every other number on screen and with the operator's wheel.</p>
+  </section>
+
+  <section class="band">
+    <h2>What it does</h2>
+
+    <h3>API gravity correction</h3>
+    <p>The digital equivalent of the wheel: observed API and fuel temperature give corrected API at 60&deg;F, with density, specific gravity, and pounds per gallon alongside. Switchable between ASTM 5B/6B referenced to 60&deg;F and ASTM 54B referenced to 15&deg;C.</p>
+
+    <h3>Compressibility factor</h3>
+    <p>Replaces the printed compressibility tables used in fuel cart and meter calibration. Because it implements API MPMS 11.2.1 directly rather than reading a grid, it accepts any input instead of the 0.5-step increments a printed page is limited to, and covers the full 0 to 90 degree API range instead of the narrow band that fits on one sheet.</p>
+
+    <h3>Meter calibration factor</h3>
+    <p>The inverse operation, for calibration technicians: corrected API and product temperature give the correction factor, with density and pounds per gallon at that temperature.</p>
+
+    <h3>Unit converter and saved records</h3>
+    <p>Volume, weight, temperature, and length conversion, plus a density-bridged converter between volume and mass. Calculations can be tagged with a tank or cart number and stored on the device, so a field reading survives until it reaches the paper form.</p>
+  </section>
+
+  <section class="band">
+    <h2>The calculation</h2>
+    <ul>
+      <li><strong>Iterative convergence.</strong> Standard density is needed to find the thermal expansion coefficient, but the coefficient is needed to find standard density. ASTM resolves the circularity by iterating to a tolerance rather than making a single pass, and so does this.</li>
+      <li><strong>Constants selected inside the loop.</strong> The K&#8320; and K&#8321; coefficients differ by fuel class — gasolines, transition, jet fuels and kerosene, diesels. Selecting them inside the iteration means a density that crosses a class boundary during convergence still lands on the right constants.</li>
+      <li><strong>Real 6B constants for the US standard.</strong> The constants referenced to 60&deg;F are the 15&deg;C constants scaled by 5/9, since one Fahrenheit degree is 5/9 of a Celsius degree. An earlier version bridged the two references with an empirical fudge factor. It fitted the data but could not be defended, so it was removed.</li>
+      <li><strong>Fuel type detection</strong> from the corrected API range.</li>
+    </ul>
+  </section>
+
+  <section class="band">
+    <h2>How it is built</h2>
+    <p>The app keeps an MVVM-style separation adapted to React Native conventions. Pure calculation and persistence live in <code>/utils</code> and <code>/storage</code> with no state and no interface. Custom hooks in <code>/hooks</code> take the ViewModel role, holding state, input parsing, validation, and orchestration. Screens and components are JSX only.</p>
+    <p>The unit converter is where that separation earns its keep: volume, weight, and length all run through one <code>useUnitConverter</code> hook driven by a unit table, so adding a category means adding a table rather than a screen.</p>
+    <p>Navigation is a custom drawer built on React Native's own <code>Animated</code> API. The usual choice, <code>react-native-reanimated</code>, kept producing TurboModule errors against the new Android architecture, so the dependency was dropped in favour of about eighty lines of first-party code.</p>
+    <p>Storage is AsyncStorage. Builds are produced with EAS Build.</p>
+  </section>
+
+  <section class="band">
+    <h2>Scope and limits</h2>
+    <ul>
+      <li>Field validation covers 44 to 47 degrees API, which is jet fuel. The diesel and AVGAS bands have not been checked against physical instruments, and I would not claim them until they have been.</li>
+      <li>Android only. An iOS build waits on Apple Developer enrolment.</li>
+      <li>No fuel specification limits yet — density, flash point, and freeze point per ASTM D1655, D975, and D4814 are on the list but not in the app.</li>
+      <li>No PDF export for shift handover yet.</li>
+    </ul>
+    <div class="note">
+      <p>The calculations are an engineering aid. They are not to be used as the sole basis for custody transfer, billing, or any safety-critical decision.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <h2>What I took from it</h2>
+    <p>The most useful thing I learned was not a framework. It was that in engineering software the physics is the test suite. Twice the code ran cleanly, looked right, and was wrong, and both times what caught it was a number that felt off to someone who had stood next to the hydrometer. Unit tests would have passed.</p>
+  </section>
+
+</main>
+
+<footer class="colophon wrap">
+  <span><a href="/">All projects</a></span>
+  <span>
+    <a href="https://github.com/baranDincsoy">GitHub</a> &middot;
+    <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-SLUG/">LinkedIn</a> &middot;
+    <a href="mailto:YOUR-EMAIL@example.com">Email</a>
+  </span>
+</footer>
+
+</body>
+</html>
