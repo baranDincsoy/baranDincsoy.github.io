@@ -7,100 +7,290 @@
 <meta name="description" content="Mobile applications built from field operations: aviation fuel calculation, ramp dispatch, engine room logging. Marine engineer officer turned software developer.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body>
 
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="masthead">
-  <div class="wrap masthead-inner">
-    <a class="wordmark" href="/">Baran Cenk Dincsoy</a>
-    <nav aria-label="Projects">
-      <a href="/fuelops/">FuelOps</a>
-      <a href="/rampdispatch/">RampDispatch</a>
-      <a href="/engineroomlog/">EngineRoomLog</a>
-      <a href="/roadtripplanner/">RoadTripPlanner</a>
-    </nav>
+<div class="topbar">
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="wordmark" href="/">Baran Cenk Dincsoy</a>
+      <nav aria-label="Sections">
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero wrap">
+    <div class="hero-grid">
+      <img class="portrait" src="/assets/images/portrait.jpg" alt="Baran Cenk Dincsoy">
+      <div>
+        <h1>I build software for work<br>I have <span class="accent">done myself</span>.</h1>
+        <p>Seven years as a marine engineer officer, then quality control on wind turbine blades, and now maintenance on an aviation fuel facility in Charlotte. For about a year I have been teaching myself mobile development alongside the day job.</p>
+        <p>Every application here started the same way: I watched someone solve a problem with a plastic wheel chart, a clipboard, or a bound paper logbook, and I already knew the procedure well enough to build the digital version correctly.</p>
+        <div class="actions">
+          <a class="btn btn-solid" href="#contact">Contact me</a>
+<a class="btn btn-ghost" href="https://www.linkedin.com/in/baran-cenk-dincsoy-953367b4/">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM2.4 21h5.16V9.24H2.4V21zM10 9.24V21h5.16v-6.2c0-3.28 4.28-3.55 4.28 0V21H24v-7.97c0-6.6-7.2-6.36-8.84-3.11V9.24H10z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="strip">
+      <span>Engine room</span>
+      <span>Turbine blades</span>
+      <span>Fuel farm</span>
+      <span>Software</span>
+    </div>
   </div>
-</header>
 
-<main id="main" class="wrap">
+</div>
 
-  <section class="band">
-    <h1>I build software for work I have done myself.</h1>
-    <p class="lede">Seven years as a marine engineer officer, then quality control on wind turbine blades, and now maintenance on an aviation fuel facility in Charlotte. For about a year I have been teaching myself mobile development alongside the day job.</p>
-    <p>Every application here started the same way: I watched someone solve a problem with a plastic wheel chart, a clipboard, or a bound paper logbook, and I already knew the procedure well enough to build the digital version correctly. The domain knowledge came first. The code came second.</p>
-    <p>I am relocating to Nova Scotia in November 2026 and hold a Canadian open work permit valid through 2029.</p>
-  </section>
+<main id="main">
 
-  <section class="band">
+  <section class="band wrap" id="projects">
     <h2>Projects</h2>
     <ul class="projects">
 
       <li class="project">
         <h3><a href="/fuelops/">FuelOps</a></h3>
+
+        <!-- Drop the five screenshots into /assets/images/ and replace this
+             placeholder with the .shot-strip block below it. -->
+        <div class="shot-placeholder">
+          Screenshots go here<br>
+          assets/images/fuelops-1.png &hellip; fuelops-5.png
+        </div>
+        <!--
+        <div class="shot-strip">
+          <img src="/assets/images/fuelops-1.png" alt="API gravity correction screen.">
+          <img src="/assets/images/fuelops-2.png" alt="Compressibility factor screen.">
+          <img src="/assets/images/fuelops-3.png" alt="Meter calibration factor screen.">
+          <img src="/assets/images/fuelops-4.png" alt="Unit converter screen.">
+          <img src="/assets/images/fuelops-5.png" alt="Saved records screen.">
+        </div>
+        -->
+
         <dl class="plate">
-          <dt>Platform</dt><dd>React Native / Expo</dd>
           <dt>Replaces</dt><dd>Gammon GTP-3012-1A API gravity wheel</dd>
           <dt>Status</dt><dd>Field-validated, preparing Play Store release</dd>
         </dl>
+
         <p>Fuel density and API gravity calculation for aviation, marine, and tank farm operators. Implements ASTM D1250 Tables 54B and 6B iteratively, plus API MPMS 11.2.1 compressibility. Checked against six real measurements at an airport fuel facility, which is how two corrections were found that the textbook formulas do not mention.</p>
+
+        <ul class="chips">
+          <li>React Native</li><li>Expo SDK 54</li><li>JavaScript</li>
+          <li>AsyncStorage</li><li>EAS Build</li><li>ASTM D1250</li>
+        </ul>
+
         <span class="more" aria-hidden="true">How FuelOps works</span>
       </li>
 
       <li class="project">
         <h3><a href="/rampdispatch/">RampDispatch</a></h3>
+
+        <div class="shot-placeholder">
+          Screenshots go here<br>
+          assets/images/rampdispatch-1.png &hellip;
+        </div>
+
         <dl class="plate">
-          <dt>Platform</dt><dd>Kotlin / Jetpack Compose</dd>
           <dt>Replaces</dt><dd>Whiteboard and radio fuel dispatch</dd>
           <dt>Status</dt><dd>Portfolio project, mock data only</dd>
         </dl>
+
         <p>Offline-first aircraft fuel dispatch board with role-based access, an eight-step fuelling wizard, and per-aircraft tank layouts. Room is the single source of truth, so the board stays usable when the ramp loses signal. Built from my own years working the ramp as a fueller and team leader.</p>
+
+        <ul class="chips">
+          <li>Kotlin</li><li>Jetpack Compose</li><li>MVVM</li>
+          <li>Room</li><li>Retrofit</li><li>Offline-first</li>
+        </ul>
+
         <span class="more" aria-hidden="true">How RampDispatch works</span>
       </li>
 
       <li class="project">
         <h3><a href="/engineroomlog/">EngineRoomLog</a></h3>
+
+        <div class="shot-placeholder">
+          Screenshots go here<br>
+          assets/images/engineroomlog-1.png &hellip;
+        </div>
+
         <dl class="plate">
-          <dt>Platform</dt><dd>Kotlin / Compose / Room / Firebase</dd>
           <dt>Replaces</dt><dd>The paper engine room logbook</dd>
           <dt>Status</dt><dd>Portfolio project</dd>
         </dl>
+
         <p>Watch entries, two-stage sign-off, and write-once PDF exports verified with SHA-256, synced across a fleet when a connection is available. The permission model and the sign-off rules come from seven years of keeping these logs by hand at sea, including the awkward cases such as a watch with only one engineer on it.</p>
+
+        <ul class="chips">
+          <li>Kotlin</li><li>Jetpack Compose</li><li>Room</li>
+          <li>Firebase</li><li>SHA-256</li><li>PDF export</li>
+        </ul>
+
         <span class="more" aria-hidden="true">How EngineRoomLog works</span>
       </li>
 
       <li class="project">
         <h3><a href="/roadtripplanner/">RoadTripPlanner</a></h3>
+
+        <div class="shot-placeholder">
+          Screenshots go here<br>
+          assets/images/roadtripplanner-1.png &hellip;
+        </div>
+
         <dl class="plate">
-          <dt>Platform</dt><dd>React Native</dd>
           <dt>Subject</dt><dd>National parks, trails, and city parks</dd>
           <dt>Status</dt><dd>Portfolio project</dd>
         </dl>
+
         <p>A discovery app that orchestrates six APIs — NPS, OSM Overpass, YouTube, Google Places, OpenWeather, and Recreation.gov — behind lazy enrichment, tiered caching, and multi-endpoint retry. The interesting problem here was not the interface but keeping request cost and failure rate down when half the sources are public infrastructure that can be slow or briefly unavailable.</p>
+
+        <ul class="chips">
+          <li>React Native</li><li>Six APIs</li><li>Tiered caching</li>
+          <li>Lazy enrichment</li><li>Retry logic</li>
+        </ul>
+
         <span class="more" aria-hidden="true">How RoadTripPlanner works</span>
       </li>
 
     </ul>
   </section>
 
-  <section class="band">
-    <h2>Background</h2>
-    <p>Second Engineer Officer licence, 3000 kW, all waters, STCW. Associate degree in computer programming from Manisa Celal Bayar University, and a maritime vocational diploma in marine maintenance and ship repair technology. Quality control on ENERCON E-138 and E-126 turbine blades at TPI Composites. Aircraft fueller, then team leader, now maintenance mechanic at an aviation fuel facility.</p>
-    <p>Certifications include the Meta Android Developer Professional Certificate, Meta React Native, and the IBM Full Stack Software Developer certificate.</p>
+  <section class="band wrap" id="about">
+    <h2>About</h2>
+    <p class="lede">The route into software was not a straight line, and the detours are the reason the applications above exist.</p>
+
+    <ol class="timeline">
+
+      <li class="entry">
+        <span class="when">2006 &ndash; 2011</span>
+        <h3>Marine maintenance and ship repair</h3>
+        <span class="where">Maritime vocational high school, Turkey</span>
+        <p>Fitter and ship repair technology. Workshop practice on engines, pumps, and piping before ever stepping onto a working vessel.</p>
+      </li>
+
+      <li class="entry">
+        <span class="when">REPLACE-YEARS &middot; seven years</span>
+        <h3>Engineer officer at sea</h3>
+        <span class="where">Multiple shipping companies &middot; Second Engineer Officer, 3000 kW, all waters, STCW</span>
+        <p>Watchkeeping, maintenance, and the engine room logbook — filled in by hand, every watch, on every ship. That routine is the direct source of EngineRoomLog, including the parts that are awkward to model, such as a watch standing with only one engineer aboard.</p>
+        <figure>
+          <img src="/assets/images/about-sea.jpg" alt="Wrapped in plastic sheeting before entering a scavenge space to clean it.">
+          <figcaption>Bagged up before crawling into a scavenge space. The logbook entry for this job is one line.</figcaption>
+        </figure>
+      </li>
+
+      <li class="entry">
+        <span class="when">2015 &ndash; 2017</span>
+        <h3>Associate degree, computer programming</h3>
+        <span class="where">Manisa Celal Bayar University</span>
+        <p>The first formal programming study, taken alongside maritime work.</p>
+      </li>
+
+      <li class="entry">
+        <span class="when">REPLACE-YEARS</span>
+        <h3>Quality control, wind turbine blades</h3>
+        <span class="where">TPI Composites, Izmir &middot; ENERCON E-138 and E-126</span>
+        <p>Inspection on composite blades tens of metres long, where a defect that passes is a defect that ships. Different industry, same instinct: the procedure exists because someone learned what happens without it.</p>
+      </li>
+
+      <li class="entry">
+        <span class="when">Oct 2018 &ndash; May 2020</span>
+        <h3>Customer Relations Representative (English)</h3>
+        <span class="where">AssisTT &middot; Turkish Airlines project</span>
+        <p>Reviewing and resolving customer feedback tickets in English. Two years of reading complaints closely enough to find the actual failure behind them.</p>
+      </li>
+
+      <li class="entry">
+        <span class="when">REPLACE-YEARS &ndash; present</span>
+        <h3>Aircraft fueller, team leader, maintenance mechanic</h3>
+        <span class="where">Menzies Aviation, Charlotte, NC</span>
+        <p>Fuelling aircraft on the ramp, then leading a team, then maintaining the fuel facility itself. FuelOps and RampDispatch both come from this work: the wheel chart in one pocket and the dispatch board on a whiteboard.</p>
+        <div class="photo-placeholder">
+          Photo goes here &mdash; ramp, fuel truck, or facility<br>
+          assets/images/about-ramp.jpg
+        </div>
+      </li>
+
+      <li class="entry">
+        <span class="when">2025 &ndash; present</span>
+        <h3>Mobile development, self-directed</h3>
+        <span class="where">Meta Android Developer &middot; Meta React Native &middot; IBM Full Stack Developer</span>
+        <p>Studying alongside full-time shift work and building the four applications above. Relocating to Nova Scotia in November 2026 on a Canadian open work permit valid through 2029.</p>
+      </li>
+
+    </ol>
   </section>
 
 </main>
 
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p class="lede">Open to software engineering roles in Canada, remote or in the Sydney and Cape Breton area, from November 2026.</p>
+
+    <div class="contact-grid">
+
+      <form action="https://formspree.io/f/YOUR-FORM-ID" method="POST">
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="name" required>
+        </label>
+        <label class="field">
+          <span>Your email</span>
+          <input type="email" name="email" required>
+        </label>
+        <label class="field">
+          <span>Subject</span>
+          <input type="text" name="subject" required>
+        </label>
+        <label class="field">
+          <span>Message</span>
+          <textarea name="message" required></textarea>
+        </label>
+        <button class="btn-submit" type="submit">Send message</button>
+        <p class="form-note">Goes straight to my inbox. I reply to everything.</p>
+      </form>
+
+      <ul class="contact-links">
+        <li>
+          <span class="label">Email</span>
+          <a href="mailto:bcenk8120@gmail.com">bcenk8120@gmail.com</a>
+        </li>
+        <li>
+          <span class="label">GitHub</span>
+          <a href="https://github.com/baranDincsoy">github.com/baranDincsoy</a>
+        </li>
+        <li>
+          <span class="label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/baran-cenk-dincsoy-953367b4/">linkedin.com/in/baran-cenk-dincsoy</a>
+        </li>
+        <li>
+          <span class="label">Location</span>
+          <span>Charlotte, NC &middot; Nova Scotia from November 2026</span>
+        </li>
+        <li>
+          <span class="label">Work authorisation</span>
+          <span>Canadian open work permit, valid through 2029</span>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</section>
+
 <footer class="colophon wrap">
   <span>Charlotte, NC &middot; Relocating to Nova Scotia, November 2026</span>
-  <span>
-    <a href="https://github.com/baranDincsoy">GitHub</a> &middot;
-    <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-SLUG/">LinkedIn</a> &middot;
-    <a href="mailto:YOUR-EMAIL@example.com">Email</a>
-  </span>
+  <span>Built as static HTML and CSS. No framework, no build step.</span>
 </footer>
 
 </body>
