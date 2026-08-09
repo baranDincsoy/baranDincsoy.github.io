@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EngineRoomLog — Baran Cenk Dincsoy</title>
+<meta name="description" content="An offline-first Android replacement for the paper engine room logbook, with two-stage sign-off, write-once PDFs verified by SHA-256, and fleet sync.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="topbar">
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="wordmark" href="/">Baran Cenk Dincsoy</a>
+      <nav aria-label="Projects">
+        <a href="/fuelops/">FuelOps</a>
+        <a href="/rampdispatch/">RampDispatch</a>
+        <a href="/engineroomlog/" aria-current="page">EngineRoomLog</a>
+        <a href="/roadtripplanner/">RoadTripPlanner</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-hero wrap">
+    <span class="kicker">Project 03 &middot; Kotlin</span>
+    <h1>EngineRoomLog</h1>
+    <p>Paper does this job, but it cannot prove itself. A page can be torn out and rewritten, and the only defence is the inspector's suspicion. This keeps everything paper does — the watch hierarchy, the sign-off chain, the day-by-day pages — and adds the one thing paper never had.</p>
+    <dl class="plate-dark">
+      <dt>Replaces</dt><dd>The paper engine room logbook</dd>
+      <dt>Built for</dt><dd>Watchkeepers, engineers, and the inspectors who read the log afterwards</dd>
+      <dt>Status</dt><dd>Portfolio project</dd>
+      <dt>Source</dt><dd><a href="https://github.com/baranDincsoy/EngineRoomLog">github.com/baranDincsoy/EngineRoomLog</a></dd>
+    </dl>
+  </div>
+
+</div>
+
+<main id="main">
+
+  <!-- Drop the screenshots into /assets/images/, then delete the placeholder
+       below and uncomment the .shots block. -->
+  <section class="band wrap">
+    <div class="shot-placeholder">
+      Screenshots go here<br>
+      assets/images/engineroomlog-1.png &hellip; engineroomlog-5.png
+    </div>
+    <!--
+    <div class="shots">
+      <img src="/assets/images/engineroomlog-1.png" alt="Entry form for a watch.">
+      <img src="/assets/images/engineroomlog-2.png" alt="Journal grid for a day.">
+      <img src="/assets/images/engineroomlog-3.png" alt="Row detail showing who collected and who posted.">
+      <img src="/assets/images/engineroomlog-4.png" alt="Exported PDF page.">
+      <img src="/assets/images/engineroomlog-5.png" alt="Fleet connection and integrity verification.">
+    </div>
+    -->
+    <ul class="chips">
+      <li>Kotlin</li><li>Jetpack Compose</li><li>Room</li>
+      <li>Firebase Auth</li><li>Cloud Storage</li><li>Firestore</li>
+      <li>SHA-256</li><li>bcrypt</li><li>PdfDocument + Canvas</li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>Why it exists</h2>
+
+    <ul class="stats">
+      <li>
+        <span class="figure">7</span>
+        <span class="caption">Years filling in these logs by hand, every watch, at sea</span>
+      </li>
+      <li>
+        <span class="figure">SHA-256</span>
+        <span class="caption">Fingerprint on every exported page, checked against the cloud record</span>
+      </li>
+      <li>
+        <span class="figure warm">0</span>
+        <span class="caption">Third-party PDF libraries — pages are drawn on a raw Canvas</span>
+      </li>
+    </ul>
+
+    <p>Rows of readings, signed off by the engineer, kept for inspectors who need to trust that no page was altered after the fact. That is the job. The design decisions here come from having done it: why removing a parameter has to be deactivation and never deletion, why the person who collects a reading should not be the one who posts it, and why the log has to keep working with no connection for weeks.</p>
+  </section>
+
+  <section class="band wrap">
+    <h2>What it does</h2>
+    <ul class="features">
+      <li>
+        <h3>Two-stage sign-off</h3>
+        <p>A watchkeeper collects readings; an engineer posts them. Posting sends nothing anywhere — it inks the record and locks it. Who collected, who posted, and both timestamps travel with every entry and can be read back on a tap.</p>
+      </li>
+      <li>
+        <h3>Write-once journal pages</h3>
+        <p>Each day exports to an A4 landscape page with group bands, column headers that wrap rather than truncate, a ruled grid, and a signatures section where unposted rows print as UNSIGNED. A guard refuses to overwrite an existing file, and the file is marked read-only after writing.</p>
+      </li>
+      <li>
+        <h3>Integrity verification</h3>
+        <p>Every upload carries a SHA-256 fingerprint in its cloud metadata. A verify action re-hashes local files against the cloud's records, which turns "this page was never altered" from a promise into something checkable.</p>
+      </li>
+      <li>
+        <h3>Group-aware pagination</h3>
+        <p>Wide engine rooms do not fit one page. Whole parameter groups are packed onto pages without splitting a group midway, and a group larger than a page gets pages of its own — the way a paper log flows onto continuation sheets.</p>
+      </li>
+      <li>
+        <h3>Sea and port modes</h3>
+        <p>Switch to in-port and the main engine parameters disappear while the generators stay. One computed property filters the whole form.</p>
+      </li>
+      <li>
+        <h3>Form management without a developer</h3>
+        <p>Engineers add parameters and groups, rename them, move a parameter between groups, change a unit, or retire one. Removing is always deactivation, never deletion, so past records stay exactly as they were signed.</p>
+      </li>
+      <li>
+        <h3>Password reset without losing the history</h3>
+        <p>A forgotten password cannot strand a tablet's records. The chief can reset a crew member's credentials, and the account structure prevents a lockout that would leave a vessel's log unreachable.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>Offline-first by construction</h2>
+    <p>A ship spends most of its life without connectivity, so nothing waits on a network. Room is the source of truth and the cloud is a mirror. The sync runs one way, ship to office, and there is no conflict resolution by design: the tablet produces, the cloud archives.</p>
+    <div class="note">
+      <p class="mono">Room (source of truth) &rarr; Flow &rarr; Compose UI &nbsp;&nbsp;|&nbsp;&nbsp; Room + filesystem &rarr; sync &rarr; Firebase (mirror)</p>
+    </div>
+    <ul class="features">
+      <li>
+        <h3>The filesystem is the queue</h3>
+        <p>Local PDF files missing from the cloud are the backlog. Deterministic filenames make that comparison trivial, and the sync is idempotent, so it can run on every app start and every network-available callback without duplicating anything. No button, no scheduler.</p>
+      </li>
+      <li>
+        <h3>Entries queue on a nullable column</h3>
+        <p>Readings stream to Firestore as they are saved, tracked by <code>syncedAt</code>. Null, or older than <code>postedAt</code>, means pending. The timestamp comparison prefers syncing twice over missing once: at least once, never at most once.</p>
+      </li>
+      <li>
+        <h3>No blocking when there is no network</h3>
+        <p>Offline, the app never reaches for Firebase at all — no timeouts, no frozen interface. The PDF list shows the last known upload status from a local cache rather than an empty screen.</p>
+      </li>
+      <li>
+        <h3>Lazy catch-up instead of scheduled jobs</h3>
+        <p>When the journal opens, any past day that has entries but no PDF is exported on the spot. Nobody reads a journal at midnight; they read it in the morning, so that is when the work happens.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>How it is built</h2>
+    <p>MVVM with unidirectional data flow and manual dependency injection. ViewModels read Room through Flow, and the interface never touches the cloud directly. Role and crew identity are carried through navigation as route arguments, so an oiler never sees the buttons an engineer does — the menu is gated at the route, not hidden with a conditional in the layout.</p>
+    <p>Room migrations are hand-written with <code>exportSchema</code> on. PDFs use Android's own <code>PdfDocument</code> and <code>Canvas</code> with no third-party library. Passwords are hashed with bcrypt; integrity uses <code>MessageDigest</code>.</p>
+    <p>A fresh install has no seeded test data. It walks through vessel setup, then a chief engineer account with employee-number login, then a realistic starter template the chief can reshape. The app is born configured rather than hard-coded.</p>
+  </section>
+
+  <section class="band wrap">
+    <h2>Scope and limits</h2>
+    <ul class="features">
+      <li>
+        <h3>No office-side view yet</h3>
+        <p>The sync pipeline has one end built. A web dashboard showing every vessel's live entries and archived journals is the natural other end, and it does not exist.</p>
+      </li>
+      <li>
+        <h3>Accounts are created on the tablet</h3>
+        <p>Crew are created locally rather than provisioned centrally from the office. Central provisioning is the right model for a fleet; local creation would remain as the offline fallback.</p>
+      </li>
+      <li>
+        <h3>Hardening not finished</h3>
+        <p>Firebase App Check and per-vessel storage rules — a device may write only to its own folder — are specified but not in place.</p>
+      </li>
+      <li>
+        <h3>Tests are thin</h3>
+        <p>The sync queue logic, PDF pagination, and migrations are the three places that most need unit tests and do not have them yet.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>What I took from it</h2>
+    <p class="lede">The hardest parts were not technical. Deciding that a single-engineer watch may sign its own entries, or that retiring a parameter must never touch a record already signed, took knowing what an inspector looks for. Those rules are not in any specification I could have read.</p>
+  </section>
+
+</main>
+
+<footer class="colophon wrap">
+  <span><a href="/">All projects</a></span>
+  <span><a href="https://github.com/baranDincsoy">GitHub</a> &middot; <a href="/#contact">Contact</a></span>
+</footer>
+
+</body>
+</html>

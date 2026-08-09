@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RampDispatch — Baran Cenk Dincsoy</title>
+<meta name="description" content="An offline-first aircraft fuel dispatch board in Kotlin and Jetpack Compose, with role-based access and an eight-step fuelling wizard modelled on the real ramp process.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="topbar">
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="wordmark" href="/">Baran Cenk Dincsoy</a>
+      <nav aria-label="Projects">
+        <a href="/fuelops/">FuelOps</a>
+        <a href="/rampdispatch/" aria-current="page">RampDispatch</a>
+        <a href="/engineroomlog/">EngineRoomLog</a>
+        <a href="/roadtripplanner/">RoadTripPlanner</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-hero wrap">
+    <span class="kicker">Project 02 &middot; Kotlin</span>
+    <h1>RampDispatch</h1>
+    <p>The dispatch tools we used on the ramp were desktop-only. Open one on a phone and you got a few columns squeezed into something unreadable, which is a problem when the job is done standing next to an aircraft. This is the version built for that situation.</p>
+    <dl class="plate-dark">
+      <dt>Replaces</dt><dd>Desktop dispatch board, whiteboard, and radio</dd>
+      <dt>Built for</dt><dd>Fuellers and team leaders working the ramp</dd>
+      <dt>Status</dt><dd>Portfolio project, mock data only</dd>
+      <dt>Source</dt><dd><a href="https://github.com/baranDincsoy/RampDispatch">github.com/baranDincsoy/RampDispatch</a></dd>
+    </dl>
+  </div>
+
+</div>
+
+<main id="main">
+
+  <!-- Drop the screenshots into /assets/images/, then delete the placeholder
+       below and uncomment the .shots block. -->
+  <section class="band wrap">
+    <div class="shot-placeholder">
+      Screenshots go here<br>
+      assets/images/rampdispatch-1.png &hellip; rampdispatch-5.png
+    </div>
+    <!--
+    <div class="shots">
+      <img src="/assets/images/rampdispatch-1.png" alt="Login screen with role selection.">
+      <img src="/assets/images/rampdispatch-2.png" alt="Dispatch board with active orders sorted by departure.">
+      <img src="/assets/images/rampdispatch-3.png" alt="Order detail with status history.">
+      <img src="/assets/images/rampdispatch-4.png" alt="Fuelling wizard, per-tank arrival readings.">
+      <img src="/assets/images/rampdispatch-5.png" alt="Stats dashboard with per-fueller workload.">
+    </div>
+    -->
+    <ul class="chips">
+      <li>Kotlin</li><li>Jetpack Compose</li><li>Material 3</li>
+      <li>MVVM + UDF</li><li>Room</li><li>Retrofit</li>
+      <li>Coroutines</li><li>StateFlow</li><li>Navigation Compose</li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>The shape of it</h2>
+
+    <ul class="stats">
+      <li>
+        <span class="figure">8</span>
+        <span class="caption">Steps in the fuelling wizard, each with its own validation gate</span>
+      </li>
+      <li>
+        <span class="figure">2</span>
+        <span class="caption">Roles, separated at the database query, not just in the interface</span>
+      </li>
+      <li>
+        <span class="figure warm">&plusmn;200</span>
+        <span class="caption">Pounds of tolerance on per-tank final readings</span>
+      </li>
+    </ul>
+
+    <p>The board shows active orders sorted by departure, with three independent controls that combine freely: status filter, concourse filter, and sort by departure time, gate, or fueller. A team leader sees every order and can assign, reassign, or unassign fuellers. A fueller sees only their own.</p>
+  </section>
+
+  <section class="band wrap">
+    <h2>What it does</h2>
+    <ul class="features">
+      <li>
+        <h3>Eight-step fuelling wizard</h3>
+        <p>Modelled on the real ramp process: tail verification, equipment entry, per-tank arrival readings, pumping, per-tank final readings, fuel cap safety check, gallon-based totaliser, and close-out by employee ID.</p>
+      </li>
+      <li>
+        <h3>Per-aircraft tank layouts</h3>
+        <p>Tank configuration comes from the order data. Boeing narrowbodies show three tanks, left, centre, and right. Airbus adds ACT 1 and ACT 2 for five. The interface adapts on its own rather than asking the fueller to pick.</p>
+      </li>
+      <li>
+        <h3>Role-based access</h3>
+        <p>Team leaders get assignment controls and station-wide statistics. Fuellers get their own queue and the fuelling workflow, and nothing else.</p>
+      </li>
+      <li>
+        <h3>Status history</h3>
+        <p>Every status transition is timestamped and logged against the order, so the sequence can be read back after the fact.</p>
+      </li>
+      <li>
+        <h3>Statistics</h3>
+        <p>Completed order counts, total fuel pumped, and per-fueller workload, aggregated with SQL rather than by pulling rows into memory and looping.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>Offline-first architecture</h2>
+    <p>The interface never reads from the network. It only ever observes the local Room database. A remote JSON source feeds Room, and the interface reacts to Room.</p>
+    <div class="note">
+      <p class="mono">Retrofit &rarr; Repository &rarr; Room (source of truth) &rarr; StateFlow &rarr; Compose UI</p>
+    </div>
+    <p>Lose signal on the ramp and the board still works from cache. Changes also propagate on their own: complete an order and it leaves the board without any code that refreshes a list.</p>
+    <p>Layers are kept honest by dependency direction. Domain models are plain Kotlin with no Android, Room, or Retrofit imports. The data layer holds the remote API, the Room entities, the repository that maps between them, and in-memory session state. Each screen has one ViewModel exposing a single immutable state object.</p>
+  </section>
+
+  <section class="band wrap">
+    <h2>Decisions worth defending</h2>
+    <ul class="features">
+      <li>
+        <h3>Derived state, not stored state</h3>
+        <p>Whether an order is overdue is never written down. It is computed from departure time against now. Fuelling totals work the same way. Store the facts, derive the conclusions.</p>
+      </li>
+      <li>
+        <h3>A refresh never overwrites work</h3>
+        <p>Pulling new remote data uses <code>OnConflictStrategy.IGNORE</code>, so existing rows are left alone and local status changes survive. Local is the source of truth; a sync that clobbers what the user just did is a bug, not a feature.</p>
+      </li>
+      <li>
+        <h3>Authorisation lives in the query</h3>
+        <p>Fuellers cannot see assignment controls, and they cannot reach another fueller's orders because the query filters by fueller ID. Hiding a control is user experience. The real boundary is in the data layer.</p>
+      </li>
+      <li>
+        <h3>Nothing persists until close-out</h3>
+        <p>The wizard holds its data in memory and writes to Room only at the end, so an abandoned wizard leaves no partial order behind.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>Scope and limits</h2>
+    <p>These are deliberate, and I would rather name them than let someone assume otherwise.</p>
+    <ul class="features">
+      <li>
+        <h3>Login is a demonstration</h3>
+        <p>Selecting a role from mock data demonstrates authorisation — who can see and do what. It is not authentication. Password hashing, server-side verification, and tokens all need a backend, which this project does not have.</p>
+      </li>
+      <li>
+        <h3>Destructive migrations</h3>
+        <p><code>fallbackToDestructiveMigration()</code> is fine here because the cache re-syncs from remote. Anything carrying real user data would need proper Room migrations first.</p>
+      </li>
+      <li>
+        <h3>Simplified tank rules</h3>
+        <p>Tank layouts are modelled, but inter-tank rules such as maximum imbalance and required fill order are out of scope on purpose, to keep the demonstration on the dispatch workflow.</p>
+      </li>
+      <li>
+        <h3>Manual dependency injection</h3>
+        <p>A small application-scoped container wires everything by hand. Right size for this, and Hilt is the obvious next step if it grows.</p>
+      </li>
+    </ul>
+    <div class="note">
+      <p>Built with mock data only. No real company data, branding, or proprietary systems are used anywhere in this project.</p>
+    </div>
+  </section>
+
+  <section class="band wrap">
+    <h2>What I took from it</h2>
+    <p class="lede">Knowing the workflow decided the architecture. The eight steps are not a design invention — they are the order the job actually happens in, including the fuel cap check that exists because of what happens when it is skipped.</p>
+  </section>
+
+</main>
+
+<footer class="colophon wrap">
+  <span><a href="/">All projects</a></span>
+  <span><a href="https://github.com/baranDincsoy">GitHub</a> &middot; <a href="/#contact">Contact</a></span>
+</footer>
+
+</body>
+</html>
