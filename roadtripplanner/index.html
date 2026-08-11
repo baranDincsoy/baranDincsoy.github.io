@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoadTripPlanner — Baran Cenk Dincsoy</title>
+<meta name="description" content="A React Native app for discovering national parks, trails, and city parks, orchestrating six APIs behind lazy enrichment, tiered caching, and multi-endpoint retry.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="topbar">
+
+  <header class="masthead">
+    <div class="wrap masthead-inner">
+      <a class="wordmark" href="/">Baran Cenk Dincsoy</a>
+      <nav aria-label="Projects">
+        <a href="/fuelops/">FuelOps</a>
+        <a href="/rampdispatch/">RampDispatch</a>
+        <a href="/engineroomlog/">EngineRoomLog</a>
+        <a href="/roadtripplanner/" aria-current="page">RoadTripPlanner</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-hero wrap">
+    <span class="kicker">Project 04 &middot; React Native</span>
+    <h1>RoadTripPlanner</h1>
+    <p>Discovery for national parks, hiking trails, and city parks. The interesting problem was never the interface. It was keeping six independent data sources — with six different rate limits, formats, and reliability profiles — from turning into six different ways for the app to fail or run up a bill.</p>
+    <dl class="plate-dark">
+      <dt>Subject</dt><dd>National parks, trails, and city parks across the United States</dd>
+      <dt>Sources</dt><dd>NPS, OSM Overpass, YouTube, Google Places, OpenWeather, Recreation.gov</dd>
+      <dt>Status</dt><dd>Portfolio project</dd>
+      <dt>Source</dt><dd><a href="https://github.com/baranDincsoy/RoadTripPlanner">github.com/baranDincsoy/RoadTripPlanner</a></dd>
+    </dl>
+  </div>
+
+</div>
+
+<main id="main">
+
+  <!-- Drop the screenshots into /assets/images/, then delete the placeholder
+       below and uncomment the .shots block. -->
+  <section class="band wrap">
+    <div class="shot-placeholder">
+      Screenshots go here<br>
+      assets/images/roadtripplanner-1.png &hellip; roadtripplanner-5.png
+    </div>
+    <!--
+    <div class="shots">
+      <img src="/assets/images/roadtripplanner-1.png" alt="Map with park and trail markers.">
+      <img src="/assets/images/roadtripplanner-2.png" alt="Park detail sheet with photos and hours.">
+      <img src="/assets/images/roadtripplanner-3.png" alt="Trail detail with computed path length.">
+      <img src="/assets/images/roadtripplanner-4.png" alt="Trip list with ordered stops.">
+      <img src="/assets/images/roadtripplanner-5.png" alt="Favorites screen.">
+    </div>
+    -->
+    <ul class="chips">
+      <li>React Native</li><li>Expo SDK 54</li><li>JavaScript</li>
+      <li>react-native-maps</li><li>AsyncStorage</li><li>expo-location</li>
+      <li>React Navigation</li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>Six sources, one interface</h2>
+
+    <ul class="stats">
+      <li>
+        <span class="figure">6</span>
+        <span class="caption">APIs behind a single service layer, each with its own cache policy</span>
+      </li>
+      <li>
+        <span class="figure">1,000+</span>
+        <span class="caption">Map markers populated from bulk data before any paid call is made</span>
+      </li>
+      <li>
+        <span class="figure warm">4</span>
+        <span class="caption">Overpass mirrors cycled through on failure, with linear backoff</span>
+      </li>
+    </ul>
+
+    <div class="table-scroll">
+      <table>
+        <caption>Source, purpose, and cache lifetime</caption>
+        <thead>
+          <tr><th scope="col">Source</th><th scope="col">Purpose</th><th scope="col">Cache</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>NPS</td><td>Federal parks and monuments</td><td>In-memory</td></tr>
+          <tr><td>OSM Overpass</td><td>Trails and city parks</td><td>30 days</td></tr>
+          <tr><td>YouTube</td><td>Park and trail video</td><td>7 days</td></tr>
+          <tr><td>Google Places</td><td>Ratings, photos, hours</td><td>30 days</td></tr>
+          <tr><td>OpenWeather</td><td>Five-day forecast</td><td>3 hours</td></tr>
+          <tr><td>Recreation.gov</td><td>Campgrounds and booking</td><td>7 days</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Cache lifetimes are matched to how fast the data actually changes. Weather goes stale in hours; a trail network changes over years. Treating them the same would mean either serving old forecasts or paying to re-fetch footpaths that have not moved since the last ice age.</p>
+  </section>
+
+  <section class="band wrap">
+    <h2>Keeping the cost down</h2>
+    <ul class="features">
+      <li>
+        <h3>Lazy enrichment</h3>
+        <p>Bulk OpenStreetMap data fills the map with over a thousand markers for nothing. Google Places is called only for the marker a user actually taps, and the result is cached by coordinate. Real cost lands around five cents per click, inside the free tier.</p>
+      </li>
+      <li>
+        <h3>Two-phase fallback</h3>
+        <p>Point-of-interest quality varies, so a Places lookup tries text search first and falls back to nearby search. One clean path would leave gaps on exactly the obscure places worth discovering.</p>
+      </li>
+      <li>
+        <h3>Strict type filtering</h3>
+        <p>Google Places results are checked against a whitelist of preferred types. Without it a search for a city park returns car parks, which is the kind of failure users blame on the app rather than the data.</p>
+      </li>
+      <li>
+        <h3>Budget alerts</h3>
+        <p>Thresholds set on Google Cloud at 50, 90, 100, and 150 per cent. A caching bug should send an email, not a bill.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>Making it survive the network</h2>
+    <ul class="features">
+      <li>
+        <h3>Multi-endpoint retry</h3>
+        <p>When an Overpass mirror returns a 504, the client cycles through four fallback servers with linear backoff of one, two, then three seconds, under a thirty-second client-side timeout enforced with AbortController.</p>
+      </li>
+      <li>
+        <h3>Partial failure stays partial</h3>
+        <p>Error handling is per source, so trails can fail while parks still load. A single unavailable mirror should cost the user one layer of the map, not the screen.</p>
+      </li>
+      <li>
+        <h3>Sequential, not parallel</h3>
+        <p>Heavy Overpass queries run one after another. Firing them in parallel was faster on paper and produced a wall of 504s in practice — the server was the constraint, not the client.</p>
+      </li>
+      <li>
+        <h3>Graceful without permission</h3>
+        <p>Distance labels use the Haversine formula with five-minute location caching for battery. If location permission is refused, the feature disappears rather than the app stalling on a prompt.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>Some details worth naming</h2>
+    <ul class="features">
+      <li>
+        <h3>Trail length from raw geometry</h3>
+        <p>On-demand OpenStreetMap geometry queries return the full polyline. Path length is the sum of Haversine distances across every node, and a trail is called a loop when its start and end are within fifty metres.</p>
+      </li>
+      <li>
+        <h3>A timing race, solved with state</h3>
+        <p>Navigating to a favourite and focusing the map on it meant the navigation parameters arrived before the map had mounted. A pending-focus value held until the map reports ready is the fix.</p>
+      </li>
+      <li>
+        <h3>Unified search</h3>
+        <p>One search bar queries parks, trails, and city parks at once, with defensive field normalisation because the three sources disagree about what a name, an identifier, and a coordinate look like.</p>
+      </li>
+      <li>
+        <h3>Multi-trip model</h3>
+        <p>A trip list with an active trip, supporting stop reordering, visited tracking with auto-skip routing, and export to multi-stop Google Maps navigation.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>How it is built</h2>
+    <p>A service layer owns every network call, cache, and error path. Screens never call <code>fetch</code> directly; they compose components and manage navigation state. Components stay presentational and type-flexible — the photo gallery accepts either an array of strings or an array of objects, because two of the sources disagree on that too.</p>
+    <p>Each source gets its own service module, which is what makes the caching policies legible: the file that knows how volatile weather is, is the file that sets the three-hour lifetime.</p>
+  </section>
+
+  <section class="band wrap">
+    <h2>Scope and limits</h2>
+    <ul>
+      <li>Coverage is the United States. The park and campground sources are federal, so the model does not transfer to another country without replacing them.</li>
+      <li>There is no server. API keys live in the client, which is fine for a portfolio build and would need a proxy before any public release.</li>
+      <li>Caches are on-device only, so a fresh install re-fetches everything and two users of the same app share nothing.</li>
+      <li>No automated tests around the cache and retry logic yet, which is exactly where they would be worth the most.</li>
+    </ul>
+  </section>
+
+  <section class="band wrap">
+    <h2>What I took from it</h2>
+    <p class="lede">Every failure mode here was a lesson in someone else's constraints. Overpass is free public infrastructure and rate-limits accordingly; Google charges per call and rewards you for asking less. Writing against six of them at once made the caching strategy a design problem rather than an afterthought.</p>
+  </section>
+
+</main>
+
+<footer class="colophon wrap">
+  <span><a href="/">All projects</a></span>
+  <span><a href="https://github.com/baranDincsoy">GitHub</a> &middot; <a href="/#contact">Contact</a></span>
+</footer>
+
+</body>
+</html>
