@@ -409,6 +409,22 @@ main { padding-top: 3.5rem; }
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+/* Dense gallery — for projects with many screens */
+.shots.dense { grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+
+@media (max-width: 46rem) {
+  .shots.dense { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 34rem) {
+  .shots.dense { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Screenshots that open full size in a new tab */
+.shots a { display: block; }
+.shots a img { transition: opacity 140ms ease; }
+.shots a:hover img { opacity: 0.75; }
+
 .shot-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
