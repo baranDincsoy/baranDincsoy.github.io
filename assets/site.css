@@ -103,8 +103,8 @@ img { max-width: 100%; display: block; }
 .wordmark {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 0.92rem;
-  letter-spacing: 0.1em;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #fff;
   text-decoration: none;
@@ -395,34 +395,32 @@ main { padding-top: 3.5rem; }
    -------------------------------------------------------------------------- */
 
 .shots {
-  display: flex;
-  gap: 0.75rem;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
   padding: 1.25rem;
   background: var(--navy-deep);
   margin-bottom: 1.25rem;
 }
 
 .shots img {
-  height: 24rem;
-  width: auto;
+  width: 100%;
+  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  flex: none;
 }
 
 .shot-strip {
-  display: flex;
-  gap: 0.6rem;
-  overflow-x: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
   margin-bottom: 1.4rem;
   background: var(--navy-deep);
   padding: 1rem;
 }
 
 .shot-strip img {
-  height: 15rem;
-  width: auto;
-  flex: none;
+  width: 100%;
+  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -669,8 +667,8 @@ tbody td:last-child { color: var(--draft); font-weight: 500; }
 .colophon a:hover { color: var(--amber); }
 
 @media (max-width: 34rem) {
-  .shots img { height: 18rem; }
-  .shot-strip img { height: 12rem; }
+  .shots,
+  .shot-strip { grid-template-columns: repeat(2, 1fr); }
   .project { padding: 1.25rem; }
   .stats .figure { font-size: 1.7rem; }
 }
@@ -681,22 +679,26 @@ tbody td:last-child { color: var(--draft); font-weight: 500; }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 11rem 1fr;
-  gap: 2.25rem;
+  grid-template-columns: 17rem 1fr;
+  gap: 2.75rem;
   align-items: start;
 }
 
 .portrait {
-  width: 11rem;
-  height: 11rem;
+  width: 100%;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-left: 3px solid var(--amber);
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 46rem) {
+  .hero-grid { grid-template-columns: 13rem 1fr; gap: 1.75rem; }
+}
+
+@media (max-width: 34rem) {
   .hero-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-  .portrait { width: 8rem; height: 8rem; }
+  .portrait { width: 11rem; }
 }
 
 /* --------------------------------------------------------------------------
